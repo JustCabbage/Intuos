@@ -14,10 +14,10 @@ int main()
         return 0;
     }
 
-    Device::WacomDevice CurrentDevice = WacomDevices[0];
+    Device::WacomDevice CurrentDevice = WacomDevices.front();
     if (WacomDevices.size() > 1)
     {
-        CurrentDevice = WacomDevices[0];
+        CurrentDevice = WacomDevices.front();
         std::cout << "Currently Selected Device\n";
         std::cout << "Product ID: " << CurrentDevice.HidAttributes.ProductID << "\n\n";
         std::wcout << "Product Name: " << std::wstring(CurrentDevice.ProductName.begin(), CurrentDevice.ProductName.end()) << "\n";

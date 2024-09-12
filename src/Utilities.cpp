@@ -3,7 +3,7 @@
 
 namespace Intuos::Utilities
 {
-    void SendMouseInput(const Vector2i& CursorPosition, const std::uint32_t ScreenWidth, const std::uint32_t ScreenHeight)
+    void SimulateMouseMovement(const Vector2i& CursorPosition, const std::uint32_t ScreenWidth, const std::uint32_t ScreenHeight)
     {
         // Windows uses a 16-bit integer to represent the absolute position of the cursor :p hence the 65536.0f
         float NormalizedX = (CursorPosition.x * 65536.0f) / ScreenWidth;

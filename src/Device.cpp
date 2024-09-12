@@ -12,7 +12,7 @@ namespace Intuos::Device
         HDEVINFO DeviceInfoSet = SetupDiGetClassDevs(&HidGUID, nullptr, nullptr, DIGCF_PRESENT | DIGCF_DEVICEINTERFACE);
         if (DeviceInfoSet == INVALID_HANDLE_VALUE)
         {
-            std::cerr << "GetWacomDevices: SetupDiGetClassDevs failed" << std::endl;
+            std::cerr << "GetWacomDevices: SetupDiGetClassDevs failed\n";
             return {};
         }
 
@@ -31,7 +31,7 @@ namespace Intuos::Device
 
             if (!SetupDiGetDeviceInterfaceDetail(DeviceInfoSet, &DeviceInterfaceData, DeviceInterfaceDetailData, RequiredSize, nullptr, nullptr))
             {
-                std::cerr << "GetWacomDevices: SetupDiGetDeviceInterfaceDetail failed" << std::endl;
+                std::cerr << "GetWacomDevices: SetupDiGetDeviceInterfaceDetail failed\n";
                 delete[] DeviceInterfaceDetailData;
                 continue;
             }
@@ -57,11 +57,10 @@ namespace Intuos::Device
             WCHAR ProductName[MAX_PATH] = {};
             if (!HidD_GetProductString(DeviceHandle, ProductName, sizeof(ProductName)))
             {
-                std::cerr << "GetWacomDevices: HidD_GetProductString failed" << std::endl;
+                std::cerr << "GetWacomDevices: HidD_GetProductString failed\n";
             }
 
-            WacomDevice Device = {DeviceHandle, HidAttributes, ProductName};
-
+            const WacomDevice Device = {DeviceHandle, HidAttributes, ProductName};
             WacomDevices.push_back(Device);
 
             delete[] DeviceInterfaceDetailData;
@@ -72,7 +71,7 @@ namespace Intuos::Device
     }
     void CaptureReports(HANDLE DeviceHandle)
     {
-        std::cout << "Reading reports..." << std::endl;
+        std::cout << "Reading reports...\n";
         BYTE ReportBuffer[REPORT_SIZE];
         DWORD BytesRead = 0;
 
@@ -83,7 +82,7 @@ namespace Intuos::Device
         {
             WacomReport Report = *reinterpret_cast<const WacomReport*>(ReportBuffer);
             const Utilities::Vector2i ScreenCoordinates = Utilities::MapToScreenCoordinates(Report.X, Report.Y, ScreenWidth, ScreenHeight);
-            Utilities::SendMouseInput(ScreenCoordinates, ScreenWidth, ScreenHeight);
+            Utilities::SimulateMouseMovement(ScreenCoordinates, ScreenWidth, ScreenHeight);
 
             if (Report.ProximityFlag == WACOM_TOUCH_FLAG)
             {
