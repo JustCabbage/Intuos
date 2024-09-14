@@ -3,7 +3,7 @@
 #include <SetupAPI.h>
 #include <hidsdi.h>
 #include <vector>
-#include <iostream>
+#include <string>
 
 namespace Intuos::Device
 {

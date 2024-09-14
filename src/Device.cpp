@@ -1,6 +1,7 @@
 #include "DeviceDefinitions.hpp"
 #include "Device.hpp"
 #include "Utilities.hpp"
+#include <iostream>
 
 namespace Intuos::Device
 {
@@ -26,7 +27,7 @@ namespace Intuos::Device
             DWORD RequiredSize = 0;
             SetupDiGetDeviceInterfaceDetail(DeviceInfoSet, &DeviceInterfaceData, nullptr, 0, &RequiredSize, nullptr);
 
-            PSP_DEVICE_INTERFACE_DETAIL_DATA DeviceInterfaceDetailData = reinterpret_cast<PSP_DEVICE_INTERFACE_DETAIL_DATA>(new char[RequiredSize]);
+            PSP_DEVICE_INTERFACE_DETAIL_DATA DeviceInterfaceDetailData = reinterpret_cast<PSP_DEVICE_INTERFACE_DETAIL_DATA>(new std::uint8_t[RequiredSize]);
             DeviceInterfaceDetailData->cbSize = sizeof(SP_DEVICE_INTERFACE_DETAIL_DATA);
 
             if (!SetupDiGetDeviceInterfaceDetail(DeviceInfoSet, &DeviceInterfaceData, DeviceInterfaceDetailData, RequiredSize, nullptr, nullptr))

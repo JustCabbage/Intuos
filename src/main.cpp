@@ -1,4 +1,5 @@
 #include "Device.hpp"
+#include <iostream>
 
 using namespace Intuos;
 
