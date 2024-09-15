@@ -2,6 +2,7 @@
 #include "Device.hpp"
 #include "Utilities.hpp"
 #include <iostream>
+#include <print>
 
 namespace Intuos::Device
 {
@@ -13,7 +14,7 @@ namespace Intuos::Device
         HDEVINFO DeviceInfoSet = SetupDiGetClassDevs(&HidGUID, nullptr, nullptr, DIGCF_PRESENT | DIGCF_DEVICEINTERFACE);
         if (DeviceInfoSet == INVALID_HANDLE_VALUE)
         {
-            std::cerr << "GetWacomDevices: SetupDiGetClassDevs failed\n";
+            std::println(std::cerr, "GetWacomDevices: SetupDiGetClassDevs failed");
             return {};
         }
 
@@ -32,7 +33,7 @@ namespace Intuos::Device
 
             if (!SetupDiGetDeviceInterfaceDetail(DeviceInfoSet, &DeviceInterfaceData, DeviceInterfaceDetailData, RequiredSize, nullptr, nullptr))
             {
-                std::cerr << "GetWacomDevices: SetupDiGetDeviceInterfaceDetail failed\n";
+                std::println(std::cerr, "GetWacomDevices: SetupDiGetDeviceInterfaceDetail failed");
                 delete[] DeviceInterfaceDetailData;
                 continue;
             }
@@ -58,7 +59,7 @@ namespace Intuos::Device
             WCHAR ProductName[MAX_PATH] = {};
             if (!HidD_GetProductString(DeviceHandle, ProductName, sizeof(ProductName)))
             {
-                std::cerr << "GetWacomDevices: HidD_GetProductString failed\n";
+                std::println(std::cerr, "GetWacomDevices: HidD_GetProductString failed");
             }
 
             const WacomDevice Device = {DeviceHandle, HidAttributes, ProductName};
@@ -72,7 +73,7 @@ namespace Intuos::Device
     }
     void CaptureReports(HANDLE DeviceHandle)
     {
-        std::cout << "Reading reports...\n";
+        std::println("Reading reports...");
         BYTE ReportBuffer[REPORT_SIZE];
         DWORD BytesRead = 0;
 

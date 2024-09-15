@@ -13,4 +13,5 @@ namespace Intuos::Utilities
     Vector2i MapToScreenCoordinates(std::uint16_t DeviceX, std::uint16_t DeviceY, const std::uint32_t ScreenWidth, const std::uint32_t ScreenHeight);
     void HoldMouse();
     void ReleaseMouse();
+    void SomeOtherFunction();
 } // namespace Intuos::Utilities
