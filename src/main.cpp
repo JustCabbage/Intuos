@@ -50,7 +50,7 @@ int main()
 
     Device::CaptureReports(CurrentDevice.DeviceHandle);
 
-    for (auto& device : WacomDevices)
+    for (Device::WacomDevice& device : WacomDevices)
     {
         CloseHandle(device.DeviceHandle);
     }
