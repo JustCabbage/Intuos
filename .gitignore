@@ -21,3 +21,4 @@ Makefile
 
 # Visual Studio Code specific files
 .vscode/
+.cache/
