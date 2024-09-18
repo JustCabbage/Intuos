@@ -22,6 +22,6 @@ struct WacomReport
     std::int16_t X;
     std::uint8_t Unknown; // 0x00 through my testing (not sure what this is for)
     std::int16_t Y;
-    std::int8_t TheRest[REPORT_SIZE - 6]; // The rest of the report I don't care about
+    std::int8_t TheRest[REPORT_SIZE - 7]; // The rest of the report I don't care about
 };
 #pragma pack(pop)
